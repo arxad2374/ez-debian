@@ -21,6 +21,9 @@ wget "https://download.docker.com/linux/debian/dists/bookworm/pool/stable/amd64/
 wget "https://download.docker.com/linux/debian/dists/bookworm/pool/stable/amd64/${docker_buildx_url}"
 wget "https://download.docker.com/linux/debian/dists/bookworm/pool/stable/amd64/${containerd_io_url}"
 
+# Set the PATH variable with common directories
+export PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
+
 # Install Docker dependencies
 dpkg -i "${docker_compose_url}"
 dpkg -i "${docker_ce_url}"

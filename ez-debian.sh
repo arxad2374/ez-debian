@@ -25,11 +25,11 @@ wget "https://download.docker.com/linux/debian/dists/bookworm/pool/stable/amd64/
 export PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
 
 # Install Docker dependencies
-dpkg -i "${docker_compose_url}"
+dpkg -i "${containerd_io_url}"
 dpkg -i "${docker_ce_url}"
 dpkg -i "${docker_ce_cli_url}"
 dpkg -i "${docker_buildx_url}"
-dpkg -i "${containerd_io_url}"
+dpkg -i "${docker_compose_url}"
 
 systemctl enable --now docker
 

@@ -5,7 +5,8 @@ apt update
 apt upgrade -y
 
 # Install necessary packages
-apt install -y sudo wget htop neofetch iproute2 net-tools
+apt install -y sudo wget htop neofetch iproute2 net-tools iptables
+apt --fix-broken install
 
 # Download and install Docker dependencies
 docker_compose_url=$(wget -qO- https://download.docker.com/linux/debian/dists/bookworm/pool/stable/amd64/ | grep -oP "href=\"docker-compose-plugin_[^\"]+\.deb\"" | awk -F '"' '{print $2}' | sort -V | tail -1)

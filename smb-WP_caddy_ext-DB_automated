@@ -1,0 +1,80 @@
+# assuming you have a fresh OS install
+# I am using Debian 11 headless and logged in as root user
+
+# updating repo
+apt update
+apt upgrade
+
+#installing essentials
+sudo apt-get install cifs-utils sudo wget
+
+# caddy install
+sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update && sudo apt install caddy
+
+# assuming you have a mariadb server on windows with necessary privillages
+sudo apt install mariadb-client
+
+# PHP install
+sudo apt install php7.4 php7.4-cli php7.4-common php7.4-curl php7.4-gd php7.4-mbstring php7.4-mysql php7.4-xml php7.4-zip -y
+sudo apt install php7.4-fpm
+
+# make a dir
+sudo mkdir -p /var/www/html
+
+# assuming you have wordpress file on windows and it's accessible from debian
+# mount SMB share on debian
+sudo mount -t cifs //192.168.0.188/wordpress /var/www/html -o username=potato,password=nsun2374
+
+# mount it using fstab to make it permanent
+sudo nano /etc/fstab
+
+# change IP address and smb share name accordingly and also username and password
+//192.168.0.188/wordpress /var/www/html cifs username=potato,password=nsun2374,iocharset=utf8,file_mode=0777,dir_mode=0777 0 0
+# save it and use the command below
+sudo mount -a
+
+# on windows, assuming your wordpress files are newly downloaded copy the ```wp-config-sample.php``` file and paste in the same directory and rename it ```wp-config.php```
+# edit the ```wp-config.php``` file
+# find this section
+# replace all the xxx with your preference
+
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'xxx' );
+
+/** Database username */
+define( 'DB_USER', 'xxx' );
+
+/** Database password */
+define( 'DB_PASSWORD', 'xxx' );
+
+/** Database hostname */
+define( 'DB_HOST', 'xxx' );
+
+# in debian
+ls /var/www/html
+# if there are WP files present then you are good to go other wise do the SMB part properly
+
+# assuming you have mariadb server installed on windows
+# create mariadb database and mariadb user with full privilleges ( definitely not recommended )
+CREATE DATABASE xxx;
+use xxx;
+CREATE USER 'xxx'@'%' IDENTIFIED BY 'xxx';
+GRANT ALL ON *.* TO 'xxx'@'%';
+flush privileges;
+
+# edit caddyfile
+nano /etc/caddy/Caddyfile
+# replace domain and paste
+your_domain {
+    root * /var/www/html
+    php_fastcgi unix//run/php/php7.4-fpm.sock
+    file_server
+}
+
+#start / reload / startup caddy
+systemctl start caddy
+systemctl restart caddy
+systemctl enable caddy

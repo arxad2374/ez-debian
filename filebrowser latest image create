@@ -4,7 +4,7 @@
 sudo apt update
 
 # Install required packages
-sudo apt install -y git wget
+sudo apt install -y git curl
 
 # Clone the FileBrowser repository
 git clone https://github.com/filebrowser/filebrowser.git
@@ -16,8 +16,8 @@ cd filebrowser-master
 mkdir filebrowsergit
 cd filebrowsergit
 
-# Download FileBrowser release
-wget https://github.com/filebrowser/filebrowser/releases/download/v2.26.0/linux-amd64-filebrowser.tar.gz
+# Download FileBrowser release using curl
+curl -LO https://github.com/filebrowser/filebrowser/releases/download/v2.26.0/linux-amd64-filebrowser.tar.gz
 
 # Extract the downloaded tar.gz file
 tar -xzvf linux-amd64-filebrowser.tar.gz

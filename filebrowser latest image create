@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Update package list
+sudo apt update
+
+# Install required packages
+sudo apt install -y git wget
+
+# Clone the FileBrowser repository
+git clone https://github.com/filebrowser/filebrowser.git
+
+# Move into the cloned repository directory
+cd filebrowser-master
+
+# Create a folder for FileBrowser and move into it
+mkdir filebrowsergit
+cd filebrowsergit
+
+# Download FileBrowser release
+wget https://github.com/filebrowser/filebrowser/releases/download/v2.26.0/linux-amd64-filebrowser.tar.gz
+
+# Extract the downloaded tar.gz file
+tar -xzvf linux-amd64-filebrowser.tar.gz
+
+# Move back to the main FileBrowser directory
+cd ..
+
+# Move the extracted FileBrowser binary to /root/filebrowser-master
+mv filebrowsergit/filebrowser /root/filebrowser-master
+
+# Move into the /root/filebrowser-master directory
+cd /root/filebrowser-master
+
+# Build Docker image
+docker build -t my-filebrowser .
+
+# Clean up (optional: remove the cloned repository)
+cd ~
+rm -rf /root/filebrowser-master

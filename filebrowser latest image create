@@ -3,37 +3,26 @@
 # Update package list
 sudo apt update
 
-# Install required packages
-sudo apt install -y git curl
+# Install Git
+sudo apt install -y git
 
-# Clone the FileBrowser repository
+# Clone File Browser repository
 git clone https://github.com/filebrowser/filebrowser.git
 
-# Move into the cloned repository directory
-cd filebrowser-master
+# Change into the cloned directory
+cd filebrowser
 
-# Create a folder for FileBrowser and move into it
-mkdir filebrowsergit
-cd filebrowsergit
-
-# Download FileBrowser release using curl
-curl -LO https://github.com/filebrowser/filebrowser/releases/download/v2.26.0/linux-amd64-filebrowser.tar.gz
+# Download the File Browser release
+curl -LJO https://github.com/filebrowser/filebrowser/releases/download/v2.26.0/linux-amd64-filebrowser.tar.gz
 
 # Extract the downloaded tar.gz file
-tar -xzvf linux-amd64-filebrowser.tar.gz
-
-# Move back to the main FileBrowser directory
-cd ..
-
-# Move the extracted FileBrowser binary to /root/filebrowser-master
-mv filebrowsergit/filebrowser /root/filebrowser-master
-
-# Move into the /root/filebrowser-master directory
-cd /root/filebrowser-master
+tar -xvf linux-amd64-filebrowser.tar.gz
 
 # Build Docker image
 docker build -t my-filebrowser .
 
-# Clean up (optional: remove the cloned repository)
-cd ~
-rm -rf /root/filebrowser-master
+# Provide optional instructions or further actions
+echo "File Browser repository cloned, release downloaded, and Docker image built. You can now run the Docker image using 'docker run my-filebrowser'."
+
+# Exit the script
+exit 0

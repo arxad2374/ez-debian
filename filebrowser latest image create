@@ -21,6 +21,9 @@ tar -xvf linux-amd64-filebrowser.tar.gz
 # Build Docker image
 docker build -t my-filebrowser .
 
+# Remove the /root/filebrowser folder
+rm -rf /root/filebrowser
+
 # Provide optional instructions or further actions
 echo "File Browser repository cloned, release downloaded, and Docker image built. You can now run the Docker image using 'docker run my-filebrowser'."
 

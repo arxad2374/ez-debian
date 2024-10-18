@@ -1,0 +1,9 @@
+services:
+  filebrowser:
+    image: my-filebrowser
+    ports:
+      - "50000:80"  # Expose the service on port 50000
+    volumes:
+      - /:/srv  # Mount the root folder to /srv in the container
+      - /root/filebrowser/database.db:/database.db  # Map the database file
+    restart: unless-stopped

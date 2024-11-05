@@ -1,0 +1,3 @@
+wget -O debian-daily-mini-netboot.iso https://d-i.debian.org/daily-images/amd64/daily/netboot/mini.iso
+
+curl -o debian-daily-mini-netboot.iso https://d-i.debian.org/daily-images/amd64/daily/netboot/mini.iso
